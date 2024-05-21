@@ -1,0 +1,6 @@
+@MySnippetService_HostAddress = http://localhost:5247
+
+GET {{MySnippetService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
