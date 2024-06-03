@@ -6,20 +6,21 @@ using System.Collections.Generic;
 
 namespace MySnippetService.Controllers
 {
+    //Endpoint til at hente uddrag af søgeresultater baseret på søgeord!
 
-
-
+    //Controller nåes via api/snippets
         [Route("api/[controller]")]
         [ApiController]
         public class SnippetsController : ControllerBase
         {
             private readonly ISnippetService _snippetService;
-
+        //modtager instans af ISnippetService
             public SnippetsController(ISnippetService snippetService)
             {
                 _snippetService = snippetService;
             }
 
+        //Nåes via api/snippets/ Searchterm
             [HttpGet("{searchTerm}")]
             public ActionResult<List<SnippetResult>> GetSnippets(string searchTerm)
             {

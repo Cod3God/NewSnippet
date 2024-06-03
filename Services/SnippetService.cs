@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 namespace MySnippetService.Services
 {
 
+    //Forbindelse til DB
         public class SnippetService : ISnippetService
         {
             private readonly string _connectionString;
@@ -16,6 +17,7 @@ namespace MySnippetService.Services
                 _connectionString = connectionString;
             }
 
+        //SQL forspørgsel til at finde ID for søgeterm
             public List<SnippetResult> GetSnippets(string searchTerm)
             {
                 var snippets = new List<SnippetResult>();
@@ -25,7 +27,7 @@ namespace MySnippetService.Services
                     connection.Open();
                     Console.WriteLine("Database connection opened.");
 
-                    // Step 1: Find the wordId for the search term
+                    // Step 1: Find wordId for search term
                     var wordIdCommand = connection.CreateCommand();
                     wordIdCommand.CommandText = @"
                 SELECT id FROM word WHERE name = $term";
@@ -36,7 +38,7 @@ namespace MySnippetService.Services
 
                     if (wordId != null)
                     {
-                        // Step 2: Find document IDs containing the wordId
+                        // Step 2: Find dokument ID'er der indeholder wordId
                         var docIdCommand = connection.CreateCommand();
                         docIdCommand.CommandText = @"
                     SELECT docId FROM occ WHERE wordId = $wordId";
@@ -56,7 +58,7 @@ namespace MySnippetService.Services
                         {
                             foreach (var docId in documentIds)
                             {
-                                // Step 3: Get the document content (assuming content is stored in a file specified by url)
+                                // Step 3: Få dokument indhold
                                 var docCommand = connection.CreateCommand();
                                 docCommand.CommandText = @"
                             SELECT url FROM document WHERE id = $docId";
@@ -67,7 +69,7 @@ namespace MySnippetService.Services
 
                                 if (!string.IsNullOrEmpty(url))
                                 {
-                                    var content = System.IO.File.ReadAllText(url); // Read content from file
+                                    var content = System.IO.File.ReadAllText(url); // Læser indhold fra filen
                                     Console.WriteLine($"Content read from {url}. Length: {content.Length}");
 
                                     if (!string.IsNullOrEmpty(content))

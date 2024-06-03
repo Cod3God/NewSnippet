@@ -12,9 +12,9 @@ namespace MySnippetService
             services.AddControllers();
             services.AddSingleton<ISnippetService>(provider =>
                 //Stationær
-                //new SnippetService(@"Data Source=C:\Users\Jonathan\OneDrive\Skrivebord\DataBaseItArkitekturPrincipper\SearchDBSmall.db"));
+                new SnippetService(@"Data Source=C:\Users\Jonathan\OneDrive\Skrivebord\DataBaseItArkitekturPrincipper\SearchDBSmall.db"));
                 //Bærebar
-                new SnippetService(@"Data Source=C:\Users\jonat\Desktop\ItArkitekturPrincipper\TestData\searchDBSmall.db"));
+                //new SnippetService(@"Data Source=C:\Users\jonat\Desktop\ItArkitekturPrincipper\TestData\searchDBSmall.db"));
 
             // //Bærebar pc --> services.AddSingleton<ISnippetService>(provider => new SnippetService(@"/Users/jonat/Desktop/ItArkitekturPrincipper/TestData/searchDBSmall.db"));
             //http://localhost:5000/api/snippets/thyme
